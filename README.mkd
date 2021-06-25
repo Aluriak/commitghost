@@ -1,0 +1,41 @@
+# Commit Ghost
+Catchy phrases:
+
+- Committing and pushing as a real human. Without human.
+- work a day, deliver on a month
+- work once, commit later
+- late autocommiting of work you made earlier
+
+
+Use case: you told the task would take 10 days. It took 1. You now want to use the 9 remaining for other tasks, while letting others know it took 10 days.
+
+
+
+## I/O
+#### Input
+- in a git repository
+- some commits are not pushed to origin
+
+#### Command
+
+    commitghost 1week --working-hours 9h-12h 14h-18h --working-days mon-fri  --anomaly .05  --push after-commit --max-one-push-per 1h
+
+#### Output
+- unpushed commits will be edited so their committing time will span the next week, on working hours and days
+- 5% of them will be anomalies, commits done outside of working hours
+- if the script is still running at that moment:
+    - pushs will be made after commits, or
+    - after the next commit if the next commit happens 1h later or less
+
+#### Consequence
+This simulate a believable-at-first-glance human work spread on a full week.
+
+
+
+## Leads for improvements
+- handling committing in different branches in a more graceful way than just firing one commitghost for each branch.
+- take into account the commit content or user annotations (e.g. a score telling ghostcommit how long a commit was to produce compared to the others) to better choose how much time is needed for that.
+- magnet flags, to allow, for instance, that:
+    - anomalies are sticking near the end of working hours and not randomly spanning in the night
+    - pushs tends to be done not just after the beggining of the working hours
+- handle public holidays
